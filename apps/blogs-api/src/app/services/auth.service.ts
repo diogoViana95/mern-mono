@@ -1,5 +1,4 @@
 import { AuthToken, PrismaClient, User } from '@prisma/client';
-import { ApiError } from '../models';
 import { Service } from './service';
 import { UsersService } from './users.service';
 
@@ -12,13 +11,7 @@ export class AuthService extends Service {
   }
 
   async login(email: string, password: string): Promise<AuthToken> {
-    const user = await this.userService.getUserByEmail(email);
-    if (!user) {
-      throw new ApiError('invalidCredentials');
-    }
-    if (user.password !== password) {
-      throw new ApiError('invalidCredentials');
-    }
+    const user = await this.userService.authenticate(email, password);
     return this.generateToken(user);
   }
 

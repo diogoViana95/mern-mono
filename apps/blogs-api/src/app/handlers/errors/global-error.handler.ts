@@ -10,6 +10,7 @@ export const globalErrorHandler: ErrorRequestHandler = (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
 ) => {
+  console.log(error);
   const response: ErrorResponse =
     errors[error.code ?? ''] ?? errors.unknownError;
 

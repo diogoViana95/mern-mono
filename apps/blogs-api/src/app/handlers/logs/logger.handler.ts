@@ -14,5 +14,5 @@ morgan.token('splitter', () => {
 });
 
 export const loggerHandler = morgan(
-  ':splitter :method :url :status :user-agent :body :res :response-time ms'
+  ':splitter :method :url :status :user-agent :body :response-time ms'
 );

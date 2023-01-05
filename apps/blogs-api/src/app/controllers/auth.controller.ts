@@ -39,6 +39,7 @@ const register: RequestHandler = async (req: Req, res) => {
     req.body.password,
     req.body.name
   );
+
   const result: TokenResponse = {
     refreshToken: token.refreshToken,
     token: token.token,
