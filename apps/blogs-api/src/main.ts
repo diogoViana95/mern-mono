@@ -3,9 +3,8 @@ import * as express from 'express';
 import 'express-async-errors';
 import * as path from 'path';
 import { registerControllers } from './app/controllers';
-import { globalErrorHandler } from './app/handlers';
+import { globalErrorHandler, loggerHandler } from './app/handlers';
 import registerServices from './app/services';
-import * as morgan from 'morgan';
 dotenv.config();
 
 const app = express();
@@ -14,7 +13,7 @@ app.use(express.json());
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-app.use(morgan('dev'));
+app.use(loggerHandler);
 
 // register everything here
 registerServices(app);
