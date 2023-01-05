@@ -1,0 +1,22 @@
+{
+  "userNotFound": {
+    "code": "userNotFound",
+    "status": 404,
+    "message": "user not found"
+  },
+  "invalidCredentials": {
+    "code": "invalidCredentials",
+    "status": 401,
+    "message": "invalid credentials"
+  },
+  "userAlreadyExists": {
+    "code": "userAlreadyExists",
+    "status": 409,
+    "message": "user already exists"
+  },
+  "unknownError": {
+    "code": "unknownError",
+    "status": 500,
+    "message": "unknown error"
+  }
+}
