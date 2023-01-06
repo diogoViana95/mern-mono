@@ -9,6 +9,15 @@ export type RegisterRequest = {
   name?: string;
 };
 
+export type RefreshTokenRequest = {
+  token: string;
+};
+
+export type RefreshTokenResponse = {
+  token: string;
+  tokenDuration: number;
+};
+
 export type TokenResponse = {
   token: string;
   tokenDuration: number;

@@ -14,6 +14,11 @@
     "status": 409,
     "message": "user already exists"
   },
+  "tokenNotFound": {
+    "code": "unknownError",
+    "status": 401,
+    "message": "unknown error"
+  },
   "unknownError": {
     "code": "unknownError",
     "status": 500,

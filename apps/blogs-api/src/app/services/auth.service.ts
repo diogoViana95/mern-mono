@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { AuthToken, PrismaClient, User } from '@prisma/client';
 import * as jwt from 'jsonwebtoken';
+import { ApiError } from '../models';
 import { Service } from './service';
 import { UsersService } from './users.service';
 
@@ -71,6 +72,44 @@ export class AuthService extends Service {
         refreshTokenDuration: this.refreshTokenDuration,
         userId: user.id,
       },
+    });
+  }
+
+  async refreshToken(token: string): Promise<AuthToken> {
+    const authtoken = await this.prisma.authToken.findUnique({
+      where: { refreshToken: token },
+    });
+    if (!authtoken) {
+      throw new ApiError('tokenNotFound');
+    }
+    try {
+      await this.verifyToken(token, this.refreshTokenSecret);
+    } catch (err) {
+      await this.prisma.authToken.delete({ where: { id: authtoken.id } });
+      throw new ApiError('tokenNotFound');
+    }
+
+    const newToken = await this.generateTokenValue(
+      authtoken.userId,
+      this.tokenSecret,
+      this.tokenDuration
+    );
+    return this.prisma.authToken.update({
+      where: { id: authtoken.id },
+      data: {
+        token: newToken,
+      },
+    });
+  }
+
+  private async verifyToken(token: string, secret: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      jwt.verify(token, secret, (err) => {
+        if (err) {
+          reject(err);
+        }
+        resolve();
+      });
     });
   }
 

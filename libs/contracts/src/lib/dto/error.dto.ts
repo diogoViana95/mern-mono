@@ -2,7 +2,8 @@ export type ErrorCode =
   | 'userNotFound'
   | 'unknownError'
   | 'invalidCredentials'
-  | 'userAlreadyExists';
+  | 'userAlreadyExists'
+  | 'tokenNotFound';
 
 export type ErrorResponse = {
   code: ErrorCode;
