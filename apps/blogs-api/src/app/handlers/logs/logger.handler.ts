@@ -3,9 +3,12 @@ import { Req } from '../../models';
 
 morgan.token('body', function getId(req: Req) {
   const body = { ...req.body };
-  if (body.password) {
-    body.password = '***';
-  }
+  Object.keys(body).forEach((key) => {
+    if (key.includes('password') || key.includes('token')) {
+      body[key] = '***';
+    }
+  });
+
   return JSON.stringify(body);
 });
 
