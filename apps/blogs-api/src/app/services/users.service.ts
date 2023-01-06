@@ -2,7 +2,7 @@ import { Prisma, User } from '@prisma/client';
 import { ApiError } from '../models';
 import { Service } from './service';
 import * as bcrypt from 'bcrypt';
-const saltRounds = 10;
+const saltRounds = +process.env.SALT_ROUNDS || 10;
 
 export class UsersService extends Service {
   getUsers(): Promise<User[]> {

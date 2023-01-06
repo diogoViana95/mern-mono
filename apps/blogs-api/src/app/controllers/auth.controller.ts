@@ -1,6 +1,5 @@
 import { Express, RequestHandler } from 'express';
 import { Req } from '../models';
-
 import * as z from 'zod';
 import { generateValidationSchema, validate } from '../handlers';
 import {
@@ -19,8 +18,10 @@ const loginSchema = generateValidationSchema<LoginRequest>({
 const login: RequestHandler = async (req: Req, res) => {
   const token = await req.authService.login(req.body.email, req.body.password);
   const result: TokenResponse = {
-    refreshToken: token.refreshToken,
     token: token.token,
+    tokenDuration: token.tokenDuration,
+    refreshToken: token.refreshToken,
+    refreshTokenDuration: token.refreshTokenDuration,
   };
   res.status(201).json(result);
 };
@@ -41,8 +42,10 @@ const register: RequestHandler = async (req: Req, res) => {
   );
 
   const result: TokenResponse = {
-    refreshToken: token.refreshToken,
     token: token.token,
+    tokenDuration: token.tokenDuration,
+    refreshToken: token.refreshToken,
+    refreshTokenDuration: token.refreshTokenDuration,
   };
 
   res.status(201).json(result);

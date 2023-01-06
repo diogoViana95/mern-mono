@@ -11,5 +11,7 @@ export type RegisterRequest = {
 
 export type TokenResponse = {
   token: string;
+  tokenDuration: number;
   refreshToken: string;
+  refreshTokenDuration: number;
 };
